@@ -1,0 +1,38 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+{% block content %}
+    <div class="product-detail">
+        <div class="left">
+            <img class="porduct-img" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="">
+            {% for item in similar_products %}
+            <h3>See also:</h3>
+            <div class="see-also">
+                    <div class="see-also-item">
+                        <a class='additional-img' href="{{ item.get_absolute_url }}"><img  src="{% if item.image %}{{ item.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt=""></a>
+                        <h4>{{ item.name }}</h4>
+                    </div>
+            </div>
+        {% endfor %}
+        </div>
+        <h1>{{ product.name }}</h1>
+        <h2>
+            {% for c in product.category.all %}<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>{% endfor %}
+        </h2>
+        <p class="price">{{ product.price }}</p>
+        <form action="{% url "cart:cart_add" product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Add to cart">
+        </form>
+        <div class="description">
+            <p>Категория:{% for c in product.category.all %} {{ c.name }}; {% endfor %}</p>
+            <p>Тип: {% for t in product.type.all %} {{ t.name }}; {% endfor %}</p>
+            <p>Производитель: {{ product.brand }}</p>
+            <p>Состав: {{ product.composition }}</p>
+            {{ product.description|linebreaks }}
+        </div>
+    </div>
+{% endblock %}

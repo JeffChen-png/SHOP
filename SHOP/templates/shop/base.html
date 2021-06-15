@@ -1,0 +1,57 @@
+{%  autoescape on %}
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <title>{% block title %}My shop{% endblock %}</title>
+            <link href="{% static "css/base.css" %}" rel="stylesheet">
+        </head>
+        <body>
+            <div id="header">
+                <a href="{% url "shop:product_list" %}" class="logo">My shop</a>
+            </div>
+            <div id="subheader">
+                <div class="account">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url "customers:profile" %}"><div class="account-img"><img src="{% if request.user.profile.photo %}{{ request.user.profile.photo.url }}{% else %} {% static "img/no_image.png" %}{% endif %}" alt=""></div></a>
+                    <div class="buttons">
+                        <a href="{% url "customers:profile" %}">View profile</a>
+                        <a href="{% url "customers:logout" %}">Logout</a>
+                    </div>
+                {% else %}
+                    <div class="buttons">
+                        <a href="{% url "customers:login" %}">Log-in</a>
+                    </div>
+                {% endif %}
+                </div>
+                <div class="cart">
+                    {% with total_items=cart|length %}
+                        {% if cart|length > 0 %}
+                            In your cart:
+                            <a href="{% url "cart:cart_detail" %}">
+                                {{ total_items }} item{{ total_items|pluralize }},
+                                {{ cart.get_total_price }} р.
+                            </a>
+                        {% else %}
+                            Your cart is empty.
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">
+                                {{ message|safe }}
+                                <a href="#" class="close">x</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+        </body>
+    </html>
+{% endautoescape %}

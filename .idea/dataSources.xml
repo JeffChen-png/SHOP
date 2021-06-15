@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="shop.bd" uuid="6d30e672-f519-4654-a601-9c0d96e3de2c">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/shop.bd</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="database" uuid="a08cb513-fea3-4c7c-8045-ba15bde280b0">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/database</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="DB_SHOP_APP" uuid="131f625a-54f4-4d6e-9fc6-28e9b34520fc">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/DB_SHOP_APP</jdbc-url>
+    </data-source>
+  </component>
+</project>

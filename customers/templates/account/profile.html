@@ -1,0 +1,24 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <h1>Profile</h1>
+    <p>{% if request.user.is_authenticated %}
+        {{ request.user.first_name }},
+        {% endif %}
+        welcome to your profile page. You can <a href="{% url "customers:edit" %}">edit your profile</a> or <a href="{% url "customers:password_change" %}">change your password</a>.</p>
+        <div class="profile">
+            <div class="profile-img-cont"><img class="profile-img" src="{% if customer.profile.photo %}{{ customer.profile.photo.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt=""></div>
+            <p>{{ customer.first_name }}</p>
+            <p>{{ customer.last_name }}</p>
+            <p>{{ customer.email }}</p>
+            <p>{{ customer.profile.date_of_birth }}</p>
+            <p>{{ customer.profile.phone }}</p>
+            <p>{{ customer.profile.region }}</p>
+            <p>{{ customer.profile.city }}</p>
+            <p>{{ customer.profile.address }}</p>
+            <p>{{ customer.profile.postal_code }}</p>
+        </div>
+{% endblock %}

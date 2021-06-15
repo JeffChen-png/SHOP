@@ -1,0 +1,60 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Products
+{% endblock %}
+
+{% block content %}
+    <div id="sidebar">
+        <h3>Categories</h3>
+        <ul>
+            <li {% if not category %}class="selected"{% endif %}>
+                <a href="{% url "shop:product_list" %}">All</a>
+            </li>
+            {% for c in categories %}
+                <li {% if category.slug == c.slug %}class="selected" {% endif %}>
+                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h3>Types</h3>
+            <ul>
+                <li {% if not brand %}class="selected"{% endif %}>
+                    <a href="{% url "shop:product_list" %}">All</a>
+                </li>
+                {% for b in brands %}
+                    <li {% if brand.slug == b.slug %}class="selected" {% endif %}>
+                        <a href="{{ b.get_absolute_url }}">{{ b.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        <h3>Brands</h3>
+            <ul>
+                <li {% if not type %}class="selected"{% endif %}>
+                    <a href="{% url "shop:product_list" %}">All</a>
+                </li>
+                {% for t in types %}
+                    <li {% if type.slug == t.slug %}class="selected" {% endif %}>
+                        <a href="{{ t.get_absolute_url }}">{{ t.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+    </div>
+
+    <div id="main" class="product-list">
+        <h1>Products</h1>
+        {% for product in products %}
+            <div class="item">
+                <a href="{{ product.get_absolute_url }}">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="">
+                </a>
+                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                <br>
+                {{ product.price }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "shop/base.html" %}
+{% block title %}2AF{% endblock %}
+{% block content %}
+    <h1>2AF</h1>
+
+    <p>Please, enter the code to log-in:</p>
+    <form action="." method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Submit"></p>
+    </form>
+{% endblock %}
